@@ -1,7 +1,6 @@
 # Zählen nach Parameter – Verteilung statt Gesamtzahl – Streamlit-Demo
 
-<!-- TODO nach dem Deploy: direkt hierher den Live-Link setzen (Leerzeile davor und danach):
-**[→ Demo live ausprobieren](https://sebastianhanisch-zaehlen-nach-parameter-demo.streamlit.app/)** -->
+**[→ Demo live ausprobieren](https://sebastianhanisch-zaehlen-nach-parameter-demo.streamlit.app/)**
 
 Stück 8 von 16 der Reihe **„Abzählen und erzeugende Funktionen“** in der „Konzepte“-Reihe für die Website „Sebastian Hanisch – Operations Research und Machine Learning“ (die Linie wird erst vollständig veröffentlicht). Vorgänger sind `aufzaehlen-rekursion-demo` (Stück 1), `rationale-ef-demo` (Stück 2), `symbolische-methode-demo` (Stück 3), `semiring-rekursion-demo` (Stück 4), `multimengen-partitionen-demo` (Stück 5), `beschriftete-strukturen-demo` (Stück 6) und `siebformel-demo` (Stück 7); sie haben **eine Zahl** geliefert, die Gesamtzahl. Diese Demo zählt **nach einem Parameter**: Eine zweite Variable y der erzeugenden Funktion zählt mit, die Zeilen der bivariaten Reihe sind die **Verteilung** (Nachtschichten einer Schichtfolge, Blätter eines Ordnungsbaums, Abstiege, Inversionen und Zyklen einer Permutation), und die **Ableitungen bei y = 1** geben Mittel und Streuung, ohne die Verteilung zu speichern (ein Momenten-Semiring mit drei Zahlen je Zustand). Wie nah die Verteilung an einer Normalverteilung liegt, ist eine **Messung**.
 
@@ -122,4 +121,4 @@ Gebaut mit Streamlit, Plotly und fpdf2.
 
 ---
 
-Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zu den Demos: [Interaktive Demos](https://sebastianhanisch.net/demos.html).
+Diese Demo ist Teil des Portfolios von [Sebastian Hanisch](https://sebastianhanisch.net) – Operations Research und Machine Learning ([Über mich](https://sebastianhanisch.net/ueber-mich.html)). Mehr zur Reihe: [Abzählen: von der Rekursion zur Verfahrenswahl](https://sebastianhanisch.net/konzepte-abzaehlen.html).
