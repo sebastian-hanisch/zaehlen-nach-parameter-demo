@@ -53,5 +53,5 @@ PRESET_HELP = {
     "Blätter von Ordnungsbäumen, n = 12": "Ordnungsbäume mit 12 Kanten nach Zahl der Blätter (Narayana-Zahlen): Mittel (n+1)/2 = 6,5.",
     "Abstiege in Permutationen, n = 12": "Eulersche Zahlen: Mittel (n−1)/2 = 5,5, Varianz (n+1)/12; die Verteilung ist symmetrisch.",
     "Inversionen in Permutationen, n = 12": "Mahonische Zahlen: Mittel n(n−1)/4 = 33, Varianz n(n−1)(2n+5)/72.",
-    "Zyklen in Permutationen, n = 12": "Stirling-Zahlen erster Art: Mittel H₁₂ ≈ 3,10; die Verteilung ist schief, die Normalverteilung passt hier schlecht (Experiment 4).",
+    "Zyklen in Permutationen, n = 12": "Stirling-Zahlen erster Art: Mittel H₁₂ ≈ 3,10; die Verteilung ist schief, die Normalverteilung passt hier schlechter als bei den anderen Familien (Experiment 4).",
 }

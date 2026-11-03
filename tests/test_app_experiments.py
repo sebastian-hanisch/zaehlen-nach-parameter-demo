@@ -42,7 +42,7 @@ def test_experiments_two_to_five_show_their_verdicts_without_a_click():
     assert "Alle drei zählen dieselben 3.628.800 Permutationen von 10 Elementen" in text and "Zyklen 2,93, 1,38" in text
     assert "je Schritt um 0,21583 und 0,15457 (n = 800)" in text and "λ = 2,546818" in text
     assert "bei den Zyklen der Permutationen bleibt er bei 0,0254 (n = 10) und 0,0253 (n = 200)" in text
-    assert "das Momenten-Semiring 17.988 (etwa 167-mal weniger)" in text
+    assert "das Momenten-Semiring 17.988 (nach der Zählregel der Demo etwa 167-mal weniger; die Laufzeit unterscheidet sich weniger)" in text
     assert "720 Rundreisen mit Kosten von 10 bis 33; Mittel 19,000" in text
 
 

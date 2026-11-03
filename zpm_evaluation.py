@@ -272,7 +272,7 @@ def verdict_normality(rows: list[dict]):
     kind = "warning" if st_hi > 0.5 * st_lo else "success"
     return kind, (f"Der Abstand zur Normalverteilung fällt bei den Nachtschichten von {de(s_lo, 4)} (n = {C.NORMAL_SHIFT_NS[0]}) auf {de(s_hi, 4)} (n = {C.NORMAL_SHIFT_NS[-1]}), "
                   f"bei den Zyklen der Permutationen bleibt er bei {de(st_lo, 4)} (n = {C.NORMAL_OTHER_NS[0]}) und {de(st_hi, 4)} (n = {C.NORMAL_OTHER_NS[-1]}): "
-                  "dort wächst die Varianz nur logarithmisch, die Normalverteilung ist eine schlechte Näherung. Gleiche Streuung heißt nicht gleiche Form.")
+                  "dort wächst die Varianz nur logarithmisch, die Normalverteilung ist hier eine deutlich schlechtere Näherung als bei den anderen Familien. Gleiche Streuung heißt nicht gleiche Form.")
 
 
 # ----------------------------------------------------------------------------- Experiment 5: Aufwand
@@ -293,7 +293,7 @@ def verdict_effort(rows: list[dict]):
         return "error", "Verteilung und Momenten-Semiring liefern verschiedene Mittel oder Varianzen."
     last = rows[-1]
     return "success", (f"Für n = {last['n']} hat die Verteilung {last['Werte der Verteilung']} Werte; sie braucht {big_text(last['Additionen Verteilung'])} Additionen, "
-                       f"das Momenten-Semiring {big_text(last['Additionen Momente'])} (etwa {de(last['Faktor'], 0)}-mal weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
+                       f"das Momenten-Semiring {big_text(last['Additionen Momente'])} (nach der Zählregel der Demo etwa {de(last['Faktor'], 0)}-mal weniger; die Laufzeit unterscheidet sich weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
                        "Wer nur Mittel und Streuung braucht, muss die Verteilung nicht speichern.")
 
 

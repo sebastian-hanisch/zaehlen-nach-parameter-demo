@@ -13,8 +13,8 @@ Wer plant, braucht oft mehr als die Gesamtzahl: wie viele der gültigen Schichtf
 
 - **Hook bestätigt:** Bivariate Reihe, Verteilung der Nachtschichten und der Blätter, Mittel und Streuung aus Ableitungen; Blätter sind die Narayana-Zahlen, Nachtschichten laufen auf dem Automaten aus Stück 1.
 - **Phase-0-Zahl für die Zyklen war falsch (mein Fehler im Messskript):** Das Skript hatte die Verteilung der Zyklen um einen Index verschoben und für n = 10 den Mittelwert 1,93 gemeldet. Richtig ist **H₁₀ = 7381/2520 ≈ 2,9290** (Träger 1 bis 10, nicht 0 bis 9); die Varianz 1,3792 war schon richtig. Der Test prüft Mittel und Varianz gegen H_n und H_n − H_n^(2) für n = 2 bis 60.
-- **Aufwand genauer gezählt:** Phase 0 schätzte bei n = 1000 etwa 2 Millionen Additionen für die Verteilung und 36.000 für das Momenten-Semiring. Gezählt werden **3.002.995** und **17.988**, also etwa **167-mal weniger** (nicht 56-mal): Das Semiring braucht drei Additionen je Übergang, die Verteilung eine je Polynomkoeffizient.
-- **Gegenbefund zur Normalverteilung:** Bei den Zyklen der Permutationen fällt der Abstand zur Normalverteilung nicht (0,0254, 0,0286, 0,0253 für n = 10, 50, 200), bei den Nachtschichten, Abstiegen und Blättern fällt er schnell. Das gilt für die gerechneten Größen, ist kein Satz.
+- **Aufwand genauer gezählt:** Phase 0 schätzte bei n = 1000 etwa 2 Millionen Additionen für die Verteilung und 36.000 für das Momenten-Semiring. Gezählt werden **3.002.995** und **17.988**, also etwa **167-mal weniger** (nicht 56-mal): Das ist eine Zählregel: Das Semiring wird mit drei Additionen je Übergang gezählt, die Verteilung mit einer je Polynomkoeffizient. Der Code rechnet je Übergang mehr (fünf Additionen und mehrere Multiplikationen); in der Laufzeit ist das Semiring bei n = 1000 daher weniger weit voraus, 137-mal in der Messung unten und 117-mal in einem unabhängigen Nachlauf.
+- **Gegenbefund zur Normalverteilung:** Bei den Zyklen der Permutationen fällt der Abstand zur Normalverteilung bis n = 200 nicht (0,0254, 0,0286, 0,0253 für n = 10, 50, 200), bei den Nachtschichten, Abstiegen und Blättern fällt er schnell. Für sehr große n fällt er auch bei den Zyklen, nur extrem langsam (nach einer unabhängigen Nachrechnung 0,0174 bei n = 10⁶). Das gilt für die gerechneten Größen, ist kein Satz.
 - **Eigenwert und Zuwachs stimmen:** Zuwachs von Mittel und Varianz je Schritt ab n = 50 auf sechs Stellen konstant (0,215835 und 0,154569), gleich den Ableitungen des größten Eigenwerts 2,546818 aus Stück 2.
 - **Präfix:** `prm_` aus dem Plan gehört `permutation-test-demo`; die Demo nutzt `zpm_`. Port 9321 wie geplant.
 - **Falsche Handrechnung (meine, nicht der Code):** In einem Test hatte ich den Kolmogorov-Abstand von zwei gleich häufigen Werten mit 0 statt 1 − Φ(2) ≈ 0,0228 erwartet (das Maximum liegt bei k = 1); in einem anderen eine gerundete Konstante mit zu enger Toleranz (n = 80 liegt noch 7·10⁻⁹ daneben). Beides im Test korrigiert, der Code war richtig.
@@ -26,7 +26,7 @@ Eine **Verteilung** ist eine Liste `d`: d[k] = Zahl der Strukturen mit Parameter
 ## Methodik
 
 - **Rechenwege in der App** (Experiment 1): Verteilung: Polynom je Zustand (DP) gegen Aufzählen aller Folgen (bis n = 12); bei den Bäumen die Formel gegen die Dyck-Pfad-DP (bis n = 60) und das Aufzählen aller Ordnungsbäume (bis n = 9); bei den Permutationen die Rekursion gegen eine unabhängige Formel (Abstiege, Zyklen) und das Aufzählen aller Permutationen (bis n = 8). Mittel und Varianz: aus der Verteilung (Brüche), Momenten-Semiring (Automat), Formel (bekannte Familien). Bei Abweichung zeigt die App einen Fehler statt einer Zahl.
-- **Aufwand** wird als Zahl der Additionen gezählt (exakt, getestet); die Zeit steht nur als Messung auf Klick.
+- **Aufwand** wird als Zahl der Additionen nach der Zählregel der Demo gezählt (getestet); die Zeit steht nur als Messung auf Klick.
 - **Eingabe:** Struktur und Parameter (sieben Möglichkeiten), Größe n (je Familie begrenzt auf 400, 150 und 200), Normalverteilung einzeichnen (ja oder nein). Die Adresszeile spiegelt die Einstellung.
 
 ## Befunde (gemessen, keine Behauptungen)
@@ -50,7 +50,7 @@ Jede Zahl steht in `tests/test_claims.py`, `tests/test_algorithm.py`, `tests/tes
 ## Ehrliche Grenzen
 
 - **Literaturwerte aus dem Gedächtnis:** Die Formeln für Mittel und Varianz (Narayana, Eulersche, Mahonische, Stirling) und die Grenzwertsätze wurden nicht an einer Quelle gelesen. Brüche bis n = 60 und Aufzählen stützen die Formeln; das ersetzt keine Quelle.
-- **„Normal“ ist eine Messung:** Abstände nur bis n = 400 (Nachtschichten) beziehungsweise 200; der Text sagt „der Abstand fällt“ oder „fällt nicht“, nie „strebt gegen 0“. Der Stirling-Gegenbefund gilt für n ≤ 200.
+- **„Normal“ ist eine Messung:** Abstände nur bis n = 400 (Nachtschichten) beziehungsweise 200; der Text sagt „der Abstand fällt“ oder „fällt bis n = 200 nicht“, nie „strebt gegen 0“. Der Stirling-Gegenbefund gilt für n ≤ 200.
 - **Log-Konkavität ist nur gemessen**, nicht bewiesen.
 - **Ein Parameter, ein Automat:** Die Schichtfolgen zählen nach den Buchstaben N, F oder S des Automaten aus Stück 1; andere Parameter (zum Beispiel die Zahl der Wechsel) brauchen einen anderen Automaten.
 - **Zwei Wörter für Streuung:** die App zeigt Varianz (exakt als Bruch) und Standardabweichung (Wurzel, Gleitkomma).
@@ -69,7 +69,7 @@ Jede Zahl steht in `tests/test_claims.py`, `tests/test_algorithm.py`, `tests/tes
 - **Layout:** Schnellstart oben in der Seitenleiste, fester Kopf, aktives Preset hervorgehoben; jede Änderung eines Reglers hebt die Markierung auf (`tests/test_layout.py`).
 - **Nicht gemacht:** Mutationstests (seit 2026-10-28 nicht mehr verlangt), Docker-Lauf der Linux-CI (Docker fehlt auf diesem Rechner; die CI nach dem Push entscheidet).
 
-393 Tests (`pytest tests`), zuletzt in etwa anderthalb bis zwei Minuten auf dem Entwicklungsrechner (Messung, nicht getestet).
+393 Tests (`pytest tests`), zuletzt in etwa einer Minute (62 Sekunden gemessen) auf dem Entwicklungsrechner (Messung, nicht getestet).
 
 ## Dateistruktur
 

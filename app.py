@@ -203,7 +203,7 @@ verdict(verdict_normality(norm_rows))
 st.markdown("---")
 
 st.subheader("🔬 Experiment 5: Aufwand")
-st.caption("Schichtfolgen, Zahl der Nächte: Additionen der Verteilung (ein Polynom je Zustand) gegen die des Momenten-Semirings (drei Zahlen je Zustand), exakt gezählt. Die Zeit messen Sie auf Klick; sie ist eine Messung dieses Rechners.")
+st.caption("Schichtfolgen, Zahl der Nächte: Additionen der Verteilung (ein Polynom je Zustand) gegen die des Momenten-Semirings (drei Zahlen je Zustand), nach der Zählregel der Demo gezählt (das Semiring drei Additionen je Übergang). Die Zeit messen Sie auf Klick; sie ist eine Messung dieses Rechners.")
 effort = _effort()
 st.plotly_chart(build_effort(effort), width="stretch", key="effort_chart")
 st.dataframe([{"n": r["n"], "Werte der Verteilung": r["Werte der Verteilung"], "Stellen der Gesamtzahl": r["Stellen der Gesamtzahl"], "Additionen Verteilung": big_text(r["Additionen Verteilung"]),
@@ -241,7 +241,7 @@ st.markdown(
 |---|---|---|
 | **Ein Parameter** | Die App zählt nach genau einem Parameter; zwei Parameter zugleich (zum Beispiel Nächte und Frühschichten) brauchen eine Reihe in drei Variablen und liefern eine gemeinsame Verteilung, nicht zwei Verteilungen. | – |
 | **Mittel und Streuung genügen** | Die Gesamtzahl verrät nichts über die Form (Experiment 2); auch Mittel und Varianz sagen nichts über Schiefe und Ränder. Die App zeigt deshalb die ganze Verteilung. | – |
-| **Die Verteilung ist fast normal** | Bei den Abstiegen und Blättern fällt der Abstand schnell, bei den Zyklen der Permutationen nicht (Experiment 4): die Varianz wächst dort nur logarithmisch. Gemessen bis n = 400 beziehungsweise 200, kein Satz. | Stück 9 der Reihe: Asymptotik |
+| **Die Verteilung ist fast normal** | Bei den Abstiegen und Blättern fällt der Abstand schnell, bei den Zyklen der Permutationen bis n = 200 nicht erkennbar (Experiment 4): die Varianz wächst dort nur logarithmisch. Gemessen bis n = 400 beziehungsweise 200, kein Satz. | Stück 9 der Reihe: Asymptotik |
 | **Genau gezählt** | Die Verteilung ist exakt (ganze Zahlen, Brüche für Mittel und Varianz). Wer Wahrscheinlichkeiten braucht, teilt durch die Gesamtzahl; das tut die App nur für die Anzeige. | – |
 | **Der Automat ist der aus Stück 1** | Andere Regeln geben andere Verteilungen; die Eigenwertrechnung (Experiment 3) gilt für diesen Automaten. | Stück 1 und 2 |
 | **Größe begrenzt** | Schichtfolgen bis n = {C.N_CAP['Schichtfolgen']}, Permutationen bis {C.N_CAP['Permutationen']}, Ordnungsbäume bis {C.N_CAP['Ordnungsbäume']}; darüber wird gekappt und das gesagt. | – |

@@ -106,7 +106,7 @@ def test_effort_rows_and_verdict():
     assert [(r["n"], r["Werte der Verteilung"], r["Stellen der Gesamtzahl"], r["Additionen Verteilung"], r["Additionen Momente"]) for r in rows] == [
         (100, 68, 41, 30295, 1788), (400, 268, 163, 481195, 7188), (1000, 668, 407, 3002995, 17988)]
     assert [r["Additionen Momente"] for r in rows] == [3 * (3 + 5 + 6 * (n - 2)) for n in C.EFFORT_NS] and all(r["gleiches Mittel und gleiche Varianz"] for r in rows)
-    assert ev.verdict_effort(rows) == ("success", "Für n = 1000 hat die Verteilung 668 Werte; sie braucht 3.002.995 Additionen, das Momenten-Semiring 17.988 (etwa 167-mal weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
+    assert ev.verdict_effort(rows) == ("success", "Für n = 1000 hat die Verteilung 668 Werte; sie braucht 3.002.995 Additionen, das Momenten-Semiring 17.988 (nach der Zählregel der Demo etwa 167-mal weniger; die Laufzeit unterscheidet sich weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
                                                   "Wer nur Mittel und Streuung braucht, muss die Verteilung nicht speichern.")
     assert ev.verdict_effort([dict(rows[0], **{"gleiches Mittel und gleiche Varianz": False})])[0] == "error"
 
