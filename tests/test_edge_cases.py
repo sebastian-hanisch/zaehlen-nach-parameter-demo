@@ -58,7 +58,7 @@ def test_huge_numbers_are_formatted_without_str_limits():
 
 def test_largest_inputs_run_and_agree():
     a = ev.analyse(ev.Settings("Schichtfolgen: Nächte", 400))
-    assert a.problems == [] and len(a.dist) == 268 and a.steps["Momente"] == 3 * (3 + 5 + 6 * 398)
+    assert a.problems == [] and len(a.dist) == 268 and a.steps["Momente"] == 5 * (3 + 5 + 6 * 398)
     b = ev.analyse(ev.Settings("Ordnungsbäume: Blätter", 200))
     assert b.problems == [] and len(b.dist) == 201 and b.mean == Fraction(201, 2)
 

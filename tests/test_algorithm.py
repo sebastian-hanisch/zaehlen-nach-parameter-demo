@@ -22,8 +22,8 @@ def test_shift_other_letters_by_hand():
 
 
 def test_shift_step_counts_by_hand():
-    # Momenten-Semiring: drei Additionen je Übergang; Übergänge je Schritt 3, 5, dann 6 (Zustände 0, 1, 2 mit 3, 2, 1 Kanten)
-    assert [A.shift_moments(n, "N")[1] for n in (1, 2, 3, 4)] == [9, 24, 42, 60]
+    # Momenten-Semiring: fünf Additionen je Übergang (a + c; b + s1 + w·c; d + s2 + 2·w·s1); Übergänge je Schritt 3, 5, dann 6 (Zustände 0, 1, 2 mit 3, 2, 1 Kanten)
+    assert [A.shift_moments(n, "N")[1] for n in (1, 2, 3, 4)] == [15, 40, 70, 100]
     assert A.shift_distribution(0, "N") == ([1], 0) and A.shift_moments(0, "N") == ((1, 0, 0), 0)
 
 

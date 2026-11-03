@@ -90,7 +90,7 @@ def shift_distribution(n: int, letter: str = "N"):
 
 
 def shift_moments(n: int, letter: str = "N"):
-    """(Zahl der Folgen, Summe der Parameter, Summe von k(k−1)) über das Momenten-Semiring: je Zustand drei Zahlen (Ableitungen der Reihe bei y = 1). Gibt (Tripel, Zahl der Additionen)."""
+    """(Zahl der Folgen, Summe der Parameter, Summe von k(k−1)) über das Momenten-Semiring: je Zustand drei Zahlen (Ableitungen der Reihe bei y = 1). Gibt (Tripel, Zahl der Additionen: fünf je Übergang, wie im Code ausgeführt; die abschließende Summation über die Zustände zählt nicht mit)."""
     _check_letter(letter)
     if n < 0:
         raise ValueError("n darf nicht negativ sein")
@@ -103,7 +103,7 @@ def shift_moments(n: int, letter: str = "N"):
                 w = 1 if ch == letter else 0
                 a, b, d = new.get(nxt, (0, 0, 0))
                 new[nxt] = (a + c, b + s1 + w * c, d + s2 + 2 * w * s1)
-                ops += 3
+                ops += 5  # a + c; b + s1 + w·c; d + s2 + 2·w·s1: 1 + 2 + 2 Additionen je Übergang (auch bei w = 0 ausgeführt)
         dp = new
     return tuple(sum(v[i] for v in dp.values()) for i in range(3)), ops
 

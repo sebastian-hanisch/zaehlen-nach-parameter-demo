@@ -50,7 +50,7 @@ def test_way_rows_for_a_small_case():
     rows = ev.way_rows(ev.analyse(S("Schichtfolgen: Nächte", 3)))
     assert rows[0] == {"Frage": "Verteilung", "Weg": "Polynom je Zustand (DP)", "Ergebnis": "[8, 8, 4]", "Schritte": "31", "Prüfung": "gleich"}
     assert rows[1] == {"Frage": "Verteilung", "Weg": "Aufzählen aller Folgen", "Ergebnis": "[8, 8, 4]", "Schritte": "27", "Prüfung": "gleich"}
-    assert rows[3]["Weg"] == "Momenten-Semiring (drei Zahlen je Zustand)" and rows[3]["Schritte"] == "42" and rows[3]["Ergebnis"] == "Mittel 0,8000, Varianz 0,5600"
+    assert rows[3]["Weg"] == "Momenten-Semiring (drei Zahlen je Zustand)" and rows[3]["Schritte"] == "70" and rows[3]["Ergebnis"] == "Mittel 0,8000, Varianz 0,5600"
     big = ev.way_rows(ev.analyse(S("Permutationen: Abstiege", 12)))
     assert big[2]["Prüfung"] == "nur bis n = 8" and big[0]["Schritte"] == "–"
 
@@ -104,9 +104,9 @@ def test_normality_rows_and_verdict():
 def test_effort_rows_and_verdict():
     rows = ev.effort_rows()
     assert [(r["n"], r["Werte der Verteilung"], r["Stellen der Gesamtzahl"], r["Additionen Verteilung"], r["Additionen Momente"]) for r in rows] == [
-        (100, 68, 41, 30295, 1788), (400, 268, 163, 481195, 7188), (1000, 668, 407, 3002995, 17988)]
-    assert [r["Additionen Momente"] for r in rows] == [3 * (3 + 5 + 6 * (n - 2)) for n in C.EFFORT_NS] and all(r["gleiches Mittel und gleiche Varianz"] for r in rows)
-    assert ev.verdict_effort(rows) == ("success", "Für n = 1000 hat die Verteilung 668 Werte; sie braucht 3.002.995 Additionen, das Momenten-Semiring 17.988 (nach der Zählregel der Demo etwa 167-mal weniger; die Laufzeit unterscheidet sich weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
+        (100, 68, 41, 30295, 2980), (400, 268, 163, 481195, 11980), (1000, 668, 407, 3002995, 29980)]
+    assert [r["Additionen Momente"] for r in rows] == [5 * (3 + 5 + 6 * (n - 2)) for n in C.EFFORT_NS] and all(r["gleiches Mittel und gleiche Varianz"] for r in rows)
+    assert ev.verdict_effort(rows) == ("success", "Für n = 1000 hat die Verteilung 668 Werte; sie braucht 3.002.995 Additionen, das Momenten-Semiring 29.980 (nach der Zählung aller ausgeführten Additionen etwa 100-mal weniger; die Zeit ist eine eigene Messung) und liefert dasselbe Mittel und dieselbe Varianz. "
                                                   "Wer nur Mittel und Streuung braucht, muss die Verteilung nicht speichern.")
     assert ev.verdict_effort([dict(rows[0], **{"gleiches Mittel und gleiche Varianz": False})])[0] == "error"
 

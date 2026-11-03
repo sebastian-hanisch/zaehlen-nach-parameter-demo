@@ -293,7 +293,7 @@ def verdict_effort(rows: list[dict]):
         return "error", "Verteilung und Momenten-Semiring liefern verschiedene Mittel oder Varianzen."
     last = rows[-1]
     return "success", (f"Für n = {last['n']} hat die Verteilung {last['Werte der Verteilung']} Werte; sie braucht {big_text(last['Additionen Verteilung'])} Additionen, "
-                       f"das Momenten-Semiring {big_text(last['Additionen Momente'])} (nach der Zählregel der Demo etwa {de(last['Faktor'], 0)}-mal weniger; die Laufzeit unterscheidet sich weniger) und liefert dasselbe Mittel und dieselbe Varianz. "
+                       f"das Momenten-Semiring {big_text(last['Additionen Momente'])} (nach der Zählung aller ausgeführten Additionen etwa {de(last['Faktor'], 0)}-mal weniger; die Zeit ist eine eigene Messung) und liefert dasselbe Mittel und dieselbe Varianz. "
                        "Wer nur Mittel und Streuung braucht, muss die Verteilung nicht speichern.")
 
 

@@ -12,7 +12,7 @@ Wer plant, braucht oft mehr als die Gesamtzahl: wie viele der gültigen Schichtf
 
 - **Hook bestätigt:** Bivariate Reihe, Verteilung der Nachtschichten und der Blätter, Mittel und Streuung aus Ableitungen; Blätter sind die Narayana-Zahlen, Nachtschichten laufen auf dem Automaten aus Stück 1.
 - **Phase-0-Zahl für die Zyklen war falsch (mein Fehler im Messskript):** Das Skript hatte die Verteilung der Zyklen um einen Index verschoben und für n = 10 den Mittelwert 1,93 gemeldet. Richtig ist **H₁₀ = 7381/2520 ≈ 2,9290** (Träger 1 bis 10, nicht 0 bis 9); die Varianz 1,3792 war schon richtig. Der Test prüft Mittel und Varianz gegen H_n und H_n − H_n^(2) für n = 2 bis 60.
-- **Aufwand genauer gezählt:** Phase 0 schätzte bei n = 1000 etwa 2 Millionen Additionen für die Verteilung und 36.000 für das Momenten-Semiring. Gezählt werden **3.002.995** und **17.988**, also etwa **167-mal weniger** (nicht 56-mal): Das ist eine Zählregel: Das Semiring wird mit drei Additionen je Übergang gezählt, die Verteilung mit einer je Polynomkoeffizient. Der Code rechnet je Übergang mehr (fünf Additionen und mehrere Multiplikationen); in der Laufzeit ist das Semiring bei n = 1000 daher weniger weit voraus, 137-mal in der Messung unten und 117-mal in einem unabhängigen Nachlauf.
+- **Aufwand genauer gezählt:** Phase 0 schätzte bei n = 1000 etwa 2 Millionen Additionen für die Verteilung und 36.000 für das Momenten-Semiring. Gezählt werden **3.002.995** und **29.980**, also etwa **100-mal weniger** (nicht 56-mal). Gezählt sind die im Code tatsächlich ausgeführten Additionen: eine je Polynomkoeffizient und Kante bei der Verteilung, fünf je Übergang beim Semiring (a + c; b + s₁ + w·c; d + s₂ + 2·w·s₁, auch bei w = 0 ausgeführt); die abschließende Summation über die Zustände zählt nicht mit, Multiplikationen auch nicht. Ein früherer Stand zählte nur drei je Übergang (17.988, Faktor 167); `tests/test_op_counts.py` vergleicht beide Zähler mit einer unabhängigen Zählung im ausgeführten Code. Die Laufzeit ist davon getrennt eine Messung (n = 1000: 137-mal in der Messung unten, 117-mal in einem unabhängigen Nachlauf).
 - **Gegenbefund zur Normalverteilung:** Bei den Zyklen der Permutationen fällt der Abstand zur Normalverteilung bis n = 200 nicht (0,0254, 0,0286, 0,0253 für n = 10, 50, 200), bei den Nachtschichten, Abstiegen und Blättern fällt er schnell. Für sehr große n fällt er auch bei den Zyklen, nur extrem langsam (nach einer unabhängigen Nachrechnung 0,0174 bei n = 10⁶). Das gilt für die gerechneten Größen, ist kein Satz.
 - **Eigenwert und Zuwachs stimmen:** Zuwachs von Mittel und Varianz je Schritt ab n = 50 auf sechs Stellen konstant (0,215835 und 0,154569), gleich den Ableitungen des größten Eigenwerts 2,546818 aus Stück 2.
 - **Präfix:** `prm_` aus dem Plan gehört `permutation-test-demo`; die Demo nutzt `zpm_`. Port 9321 wie geplant.
@@ -25,7 +25,7 @@ Eine **Verteilung** ist eine Liste `d`: d[k] = Zahl der Strukturen mit Parameter
 ## Methodik
 
 - **Rechenwege in der App** (Experiment 1): Verteilung: Polynom je Zustand (DP) gegen Aufzählen aller Folgen (bis n = 12); bei den Bäumen die Formel gegen die Dyck-Pfad-DP (bis n = 60) und das Aufzählen aller Ordnungsbäume (bis n = 9); bei den Permutationen die Rekursion gegen eine unabhängige Formel (Abstiege, Zyklen) und das Aufzählen aller Permutationen (bis n = 8). Mittel und Varianz: aus der Verteilung (Brüche), Momenten-Semiring (Automat), Formel (bekannte Familien). Bei Abweichung zeigt die App einen Fehler statt einer Zahl.
-- **Aufwand** wird als Zahl der Additionen nach der Zählregel der Demo gezählt (getestet); die Zeit steht nur als Messung auf Klick.
+- **Aufwand** wird als Zahl der im Code ausgeführten Additionen gezählt (getestet gegen eine unabhängige Zählung); die Zeit steht nur als Messung auf Klick.
 - **Eingabe:** Struktur und Parameter (sieben Möglichkeiten), Größe n (je Familie begrenzt auf 400, 150 und 200), Normalverteilung einzeichnen (ja oder nein). Die Adresszeile spiegelt die Einstellung.
 
 ## Befunde (gemessen, keine Behauptungen)
@@ -41,7 +41,7 @@ Jede Zahl steht in `tests/test_claims.py`, `tests/test_algorithm.py`, `tests/tes
 | Wachstum beim Automaten (Experiment 3) | n = 50, 100, 200, 400, 800: Mittel 10,95, 21,74, 43,33, 86,49, 172,83; Varianz 7,84, 15,57, 31,03, 61,94, 123,77; Zuwachs je Schritt 0,215835 und 0,154569; größter Eigenwert 2,546818, μ = 0,21583, σ² = 0,15457 |
 | Abstand zur Normalverteilung (Experiment 4), Kolmogorov mit Stetigkeitskorrektur | Nachtschichten n = 10, 25, 50, 100, 200, 400: 0,01324, 0,00946, 0,00671, 0,00467, 0,00324, 0,00230 (mal √n etwa 0,042 bis 0,047); Eulersche Zahlen n = 10, 50, 200: 0,00923, 0,00190, 0,00049; Narayana: 0,00554, 0,00124, 0,00031; Stirling erster Art: 0,02544, 0,02858, 0,02533 |
 | Log-Konkavität | c_k² ≥ c_(k−1)·c_(k+1) in allen gerechneten Verteilungen: Nachtschichten n = 1 bis 200, Narayana und Eulersche Zahlen n = 2 bis 200, Stirling erster Art n = 2 bis 100, Mahonische Zahlen n = 2 bis 60 |
-| Aufwand (Experiment 5) | n = 100, 400, 1000: Verteilung mit 68, 268, 668 Werten (Gesamtzahl 41, 163, 407 Stellen); Additionen Verteilung 30.295, 481.195, 3.002.995; Momenten-Semiring 1.788, 7.188, 17.988 (3·(3 + 5 + 6·(n−2))); Faktor 16,9, 66,9, 166,9; gleiches Mittel und gleiche Varianz |
+| Aufwand (Experiment 5) | n = 100, 400, 1000: Verteilung mit 68, 268, 668 Werten (Gesamtzahl 41, 163, 407 Stellen); Additionen Verteilung 30.295, 481.195, 3.002.995; Momenten-Semiring 2.980, 11.980, 29.980 (5·(3 + 5 + 6·(n−2))); Faktor 10,2, 40,2, 100,2; gleiches Mittel und gleiche Varianz |
 | Kostenverteilung einer Rundreise (Spielwiese), 7 Städte, Kosten 1 bis 5, Seed 35 | 720 Rundreisen mit Kosten von 10 bis 33; Mittel 19 = Summe aller Kantenkosten 114 geteilt durch n − 1 = 6, Varianz 43/3 ≈ 14,333; bei 8 Städten 5.040 Rundreisen |
 | Presets | Nachtschichten n = 10: 1.024 Folgen ohne Nacht, 4 mit sieben Nächten; Blätter n = 12: 208.012 Bäume, Mittel 6,5; Abstiege n = 12: Mittel 5,5, Varianz 13/12; Inversionen n = 12: Mittel 33; Zyklen n = 12: Mittel H₁₂ ≈ 3,10; Spätschichten n = 400: Gesamtzahl 3,04·10¹⁶² (163 Stellen), häufigster Wert 190 |
 | Zeit (nur gemessen, **nicht getestet**) | Auf dem Entwicklungsrechner (Phase 0): n = 1000: Verteilung 0,96 s, Momenten-Semiring 0,007 s; die App misst n = 400 und 1000 auf Klick |
@@ -68,7 +68,7 @@ Jede Zahl steht in `tests/test_claims.py`, `tests/test_algorithm.py`, `tests/tes
 - **Layout:** Schnellstart oben in der Seitenleiste, fester Kopf, aktives Preset hervorgehoben; jede Änderung eines Reglers hebt die Markierung auf (`tests/test_layout.py`).
 - **Nicht gemacht:** Mutationstests (seit 2026-10-28 nicht mehr verlangt), Docker-Lauf der Linux-CI (Docker fehlt auf diesem Rechner; die CI nach dem Push entscheidet).
 
-393 Tests (`pytest tests`), zuletzt in etwa einer Minute (62 Sekunden gemessen) auf dem Entwicklungsrechner (Messung, nicht getestet).
+429 Tests (`pytest tests`), zuletzt in etwa einer Minute (55 Sekunden gemessen) auf dem Entwicklungsrechner (Messung, nicht getestet).
 
 ## Dateistruktur
 
@@ -88,7 +88,7 @@ Jede Zahl steht in `tests/test_claims.py`, `tests/test_algorithm.py`, `tests/tes
 | `zpm_visualization.py` | Plotly-Abbildungen (Achsen gesperrt) |
 | `requirements-dev.txt` | Laufzeit plus pytest |
 | `requirements.txt` | Laufzeit-Bibliotheken (ungepinnt) |
-| `tests/` | Handwerte, Orakel, Eigenschaften, Randfälle, Verdikte, Claims, Presets, Layout, AppTest, Footer, Laufzeit-Importe |
+| `tests/` | Handwerte, Orakel, Eigenschaften, Randfälle, Verdikte, Claims, Zählung gegen Rechnung, Presets, Layout, AppTest, Footer, Laufzeit-Importe |
 
 ## Bewusst nicht umgesetzt
 

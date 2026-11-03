@@ -64,8 +64,8 @@ def test_readme_log_concavity():
 def test_readme_effort():
     rows = ev.effort_rows()
     assert [(r["n"], r["Werte der Verteilung"], r["Stellen der Gesamtzahl"], r["Additionen Verteilung"], r["Additionen Momente"]) for r in rows] == [
-        (100, 68, 41, 30295, 1788), (400, 268, 163, 481195, 7188), (1000, 668, 407, 3002995, 17988)]
-    assert [round(r["Faktor"], 1) for r in rows] == [16.9, 66.9, 166.9]
+        (100, 68, 41, 30295, 2980), (400, 268, 163, 481195, 11980), (1000, 668, 407, 3002995, 29980)]
+    assert [round(r["Faktor"], 1) for r in rows] == [10.2, 40.2, 100.2]
 
 
 def test_readme_tour_cost_distribution():

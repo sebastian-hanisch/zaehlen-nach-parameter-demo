@@ -203,7 +203,7 @@ verdict(verdict_normality(norm_rows))
 st.markdown("---")
 
 st.subheader("🔬 Experiment 5: Aufwand")
-st.caption("Schichtfolgen, Zahl der Nächte: Additionen der Verteilung (ein Polynom je Zustand) gegen die des Momenten-Semirings (drei Zahlen je Zustand), nach der Zählregel der Demo gezählt (das Semiring drei Additionen je Übergang). Die Zeit messen Sie auf Klick; sie ist eine Messung dieses Rechners.")
+st.caption("Schichtfolgen, Zahl der Nächte: Additionen der Verteilung (ein Polynom je Zustand) gegen die des Momenten-Semirings (drei Zahlen je Zustand), gezählt sind alle im Code ausgeführten Additionen (das Semiring fünf je Übergang). Die Zeit messen Sie auf Klick; sie ist eine Messung dieses Rechners.")
 effort = _effort()
 st.plotly_chart(build_effort(effort), width="stretch", key="effort_chart")
 st.dataframe([{"n": r["n"], "Werte der Verteilung": r["Werte der Verteilung"], "Stellen der Gesamtzahl": r["Stellen der Gesamtzahl"], "Additionen Verteilung": big_text(r["Additionen Verteilung"]),
