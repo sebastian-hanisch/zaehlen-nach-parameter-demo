@@ -203,7 +203,7 @@ def verdict_answers(a: Analysis):
         head = f"Ordnungsbäume mit {a.n_eff} Kanten nach Zahl der {a.kind}"
     checked = len([w for w in a.ways if w["Wert"] is not None])
     return "success", (f"{head}: {big_text(total)} Strukturen, Mittel {frac_text(a.mean)}, Varianz {frac_text(a.var)}, Standardabweichung {de(sd, 4)}; am häufigsten {mode} mit {de(100 * a.dist[mode] / total, 2)} %. "
-                       f"{checked} Rechenweg(e) geben je Frage dieselbe Zahl.")
+                       f"{checked} {'Rechenweg gibt' if checked == 1 else 'Rechenwege geben'} je Frage dieselbe Zahl.")
 
 
 # ----------------------------------------------------------------------------- Experiment 2: gleiche Gesamtzahl

@@ -18,7 +18,7 @@ def test_formatting():
 def test_verdict_answers_for_the_standard_case(hand_shifts_3):
     a = ev.analyse(S())
     assert ev.verdict_answers(a) == ("success", "Gültige Schichtfolgen der Länge 10 nach Zahl der Nächte: 13.926 Strukturen, Mittel 2,3166, Varianz 1,6581, Standardabweichung 1,2877; am häufigsten 2 mit 29,41 %. "
-                                                "5 Rechenweg(e) geben je Frage dieselbe Zahl.")
+                                                "5 Rechenwege geben je Frage dieselbe Zahl.")
     small = ev.analyse(S("Schichtfolgen: Nächte", 3))
     assert small.dist == hand_shifts_3["dist"] and small.mean == hand_shifts_3["mean"] and small.var == hand_shifts_3["var"]
     assert "20 Strukturen, Mittel 0,8000, Varianz 0,5600" in ev.verdict_answers(small)[1]
@@ -26,7 +26,7 @@ def test_verdict_answers_for_the_standard_case(hand_shifts_3):
 
 def test_verdict_answers_for_the_other_families():
     assert ev.verdict_answers(ev.analyse(S("Ordnungsbäume: Blätter", 12))) == ("success", "Ordnungsbäume mit 12 Kanten nach Zahl der Blätter: 208.012 Strukturen, Mittel 6,5000, Varianz 1,5543, Standardabweichung 1,2467; "
-                                                                                       "am häufigsten 6 mit 29,32 %. 4 Rechenweg(e) geben je Frage dieselbe Zahl.")
+                                                                                       "am häufigsten 6 mit 29,32 %. 4 Rechenwege geben je Frage dieselbe Zahl.")
     assert ev.verdict_answers(ev.analyse(S("Permutationen: Abstiege", 12)))[1].startswith("Permutationen von 12 Elementen nach Zahl der Abstiege: 479.001.600 Strukturen, Mittel 5,5000, Varianz 1,0833")
     assert ev.verdict_answers(ev.analyse(S("Permutationen: Zyklen", 12)))[1].startswith("Permutationen von 12 Elementen nach Zahl der Zyklen: 479.001.600 Strukturen, Mittel 3,1032, Varianz 1,5382")
     assert "Mittel 33,0000, Varianz 53,1667" in ev.verdict_answers(ev.analyse(S("Permutationen: Inversionen", 12)))[1]
